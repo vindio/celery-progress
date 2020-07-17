@@ -97,7 +97,10 @@ class ProgressMultiTaskConsumer(AsyncJsonWebsocketConsumer):
 
     async def disconnect(self, close_code):
         logging.info('Disconecting client. tasks=%s', self.tasks)
-        await self.unfollow_tasks(self.tasks)
+        try:
+            await self.unfollow_tasks(self.tasks)
+        except ProgressError:
+            pass
 
     async def receive_json(self, content):
         try:
