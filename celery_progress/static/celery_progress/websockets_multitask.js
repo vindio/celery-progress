@@ -41,8 +41,7 @@ var CeleryWebSocketMultiTaskProgressBar = (function () {
             task_ids.push(task_id);
         }
 
-        var ProgressSocket = new WebSocket((location.protocol === 'https:' ? 'wss' : 'ws') + '://' +
-            window.location.host + progressUrl);
+        var ProgressSocket = new WebSocket(progressUrl);
 
         ProgressSocket.onopen = function (event) {
             ProgressSocket.send(JSON.stringify({'type': 'follow_tasks', 'task_ids': task_ids}));
