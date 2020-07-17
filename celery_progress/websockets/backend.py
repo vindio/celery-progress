@@ -24,19 +24,28 @@ class WebSocketProgressRecorder(ProgressRecorder):
                 channel_layer = get_channel_layer()
                 async_to_sync(channel_layer.group_send)(
                     task_id,
-                    {'type': 'update_task_progress', 'data': {**Progress(task_id).get_info()}}
+                    {
+                        'type': 'update_task_progress',
+                        'data': {**Progress(task_id).get_info()}
+                    }
                 )
             except AttributeError:  # No channel layer to send to, so ignore it
                 pass
         else:
             logger.info(
-                'Tried to use websocket progress bar, but dependencies were not installed / configured. '
-                'Use pip install celery-progress[websockets] and setup channels to enable this feature.'
-                'See: https://channels.readthedocs.io/en/latest/ for more details.'
+                'Tried to use websocket progress bar, but dependencies were '
+                'not installed / configured.'
+                'Use pip install celery-progress[websockets] and setup '
+                'channels to enable this feature.'
+                'See: https://channels.readthedocs.io/en/latest/ for more '
+                'details.'
             )
 
-    def set_progress(self, current, total, description=""):
-        super().set_progress(current, total, description)
+    def set_progress(self, current, total, description="", progress_id=None):
+        super().set_progress(current, total, description, progress_id)
+
+        # TODO no actualizar directamente. Subscribir consumer al evento 
+        # on message de la tarea
         self.push_update(self.task.request.id)
 
     def stop_task(self, current, total, exc):

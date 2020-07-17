@@ -16,7 +16,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='celery-progress',
-    version='0.0.10',
+    version='0.0.11',
     packages=find_packages(),
     include_package_data=True,
     license='MIT License',
@@ -30,6 +30,7 @@ setup(
         'Framework :: Django',
         'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
+        'Framework :: Django :: 3.0',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
