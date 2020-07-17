@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 class ProgressError(Exception):
     def __init__(self, message=None):
         self.message = message
-        super().__init__(self, message)
+        super().__init__(message)
 
     def __str__(self):
         return self.message
@@ -27,27 +27,27 @@ class ProgressError(Exception):
 
 class RequestRequired(ProgressError):
     def __init__(self):
-        super().__init__(self, 'type is required')
+        super().__init__('type is required')
 
 
 class UnknownRequest(ProgressError):
     def __init__(self):
-        super().__init__(self, 'unknown request type')
+        super().__init__('unknown request type')
 
 
 class TaskIdRequired(ProgressError):
     def __init__(self):
-        super().__init__(self, 'task_id is required')
+        super().__init__('task_id is required')
 
 
 class TaskIdInvalid(ProgressError):
     def __init__(self, task_id=''):
-        super().__init__(self, f'task_id is not valid {task_id}')
+        super().__init__(f'task_id is not valid {task_id}')
 
 
 class TaskIdsRequired(ProgressError):
     def __init__(self):
-        super().__init__(self, 'task_ids is required')
+        super().__init__('task_ids is required')
 
 
 class ProgressConsumer(AsyncWebsocketConsumer):
